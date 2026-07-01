@@ -164,6 +164,7 @@ class BookingForm extends Component {
 											alert(
 												'Data anteriore alla data odierna',
 											);
+											e.target.value = '';
 											return;
 										}
 										this.setState({
