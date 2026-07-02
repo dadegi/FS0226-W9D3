@@ -5,6 +5,8 @@ import { Container } from 'react-bootstrap';
 import Welcome from './components/Welcome';
 import BookingForm from './components/BookingForm';
 import Home from './components/Home';
+import Footer from './components/Footer';
+import BookingList from './components/BookingList';
 
 function App() {
 	return (
@@ -13,9 +15,12 @@ function App() {
 				<Navigation />
 				<Container>
 					<Welcome />
-					<BookingForm />
 					<Home />
+					<BookingForm />
+					<hr />
+					<BookingList />
 				</Container>
+				<Footer />
 			</div>
 		</>
 	);
