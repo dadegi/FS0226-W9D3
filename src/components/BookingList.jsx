@@ -6,9 +6,10 @@ import {
 	Spinner,
 	ListGroup,
 	Alert,
+	Button,
 } from 'react-bootstrap';
 
-const APIURL = 'https://striveschool-api.herokuapp.com/api/reservation';
+const APIURL = 'https://striveschool-api.herokuapp.com/api/reservation/';
 
 class BookingList extends Component {
 	// Lo stato servirà a memorizzare nella memoria del component quello che arriverà dalla GET e a collegare il rendering
@@ -43,10 +44,29 @@ class BookingList extends Component {
 			});
 	};
 
+	deleteItem = (itemId) => {
+		fetch(APIURL + itemId, {
+			method: 'DELETE',
+		})
+			.then((response) => {
+				if (response.ok) {
+					alert('Prenotazione cancellata');
+				} else {
+					throw new Error(
+						'Errore nella cancellazione della prenotazione',
+					);
+				}
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	};
+
 	// componentDidMount è un metodo di lyfecycle (ciclo di vita del component, indica all'applicazione di eseguire le istruzioni DOPO che il componente è stato caricato, senza quindi bloccare il rendering delle parti statiche)
 	componentDidMount() {
 		this.listReservations();
 	}
+	// componentDidMount viene eseguito UNA VOLTA SOLA, al PRIMO caricamento del component, quindi eventuali cambiamenti nella base dati (in questo caso una nuova prenotazione o l'eliminazione di una prenotazione esistente) non vengono renderizzati subito, perché listReservations() non viene rieseguito; bisogna ricaricare il component per vedere la lsita aggiornata
 
 	render() {
 		console.log(this.state.reservations);
@@ -70,6 +90,7 @@ class BookingList extends Component {
 						)}
 						<ListGroup>
 							{this.state.reservations.map((item) => {
+								let itemId = item._id;
 								let itemDate = new Date(
 									item.dateTime,
 								).toLocaleDateString();
@@ -77,11 +98,25 @@ class BookingList extends Component {
 									item.dateTime,
 								).toLocaleTimeString();
 								return (
-									<ListGroup.Item key={item._id}>
+									<ListGroup.Item
+										key={item._id}
+										className='bookingList'
+									>
 										Prenotazione a nome di {item.name} per{' '}
 										{item.numberOfPeople} persone, per il{' '}
 										{itemDate} alle {itemTime}. Richieste
 										speciali: {item.specialRequests}
+										<p>
+											<Button
+												type='button'
+												variant='light'
+												onClick={() =>
+													this.deleteItem(itemId)
+												}
+											>
+												❌
+											</Button>
+										</p>
 									</ListGroup.Item>
 								);
 							})}
