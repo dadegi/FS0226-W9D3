@@ -1,0 +1,27 @@
+[
+    {
+        "id": 1,
+        "name": "Amatriciana",
+        "image": "/img/amatriciana.jpg"
+    },
+    {
+        "id": 2,
+        "name": "Cacio e pepe",
+        "image": "/img/cacioepepe.jpg"
+    },
+    {
+        "id": 3,
+        "name": "Carbonara",
+        "image": "/img/carbonara.jpg"
+    },
+    {
+        "id": 4,
+        "name": "Gricia",
+        "image": "/img/gricia.jpg"
+    },
+    {
+        "id": 5,
+        "name": "Scogliera",
+        "image": "/img/scogliera.jpg"
+    }
+]
